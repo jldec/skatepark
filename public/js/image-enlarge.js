@@ -1,6 +1,21 @@
 let overlay
 let currentImageIndex = -1
 let allImages = []
+let touchStartX = 0
+
+document.addEventListener('touchstart', (e) => {
+  if (overlay) touchStartX = e.touches[0].clientX
+})
+
+document.addEventListener('touchend', (e) => {
+  if (!overlay) return
+  const touchEndX = e.changedTouches[0].clientX
+  const diff = touchStartX - touchEndX
+  if (Math.abs(diff) > 50) {
+    e.preventDefault()
+    navigateImage(diff > 0 ? 1 : -1)
+  }
+})
 
 function createImageOverlay(popupImage) {
   allImages = Array.from(document.querySelectorAll('img'))
