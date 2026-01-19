@@ -8,9 +8,19 @@
     "preview": "astro preview",
     "astro": "astro"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^6.0.0-beta.1",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "wrangler": "^4.59.2"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "semi": false
   }
 }

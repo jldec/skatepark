@@ -1,0 +1,144 @@
+jurgen@jldec.me main ~/astro/skatepark$ p wrangler -h
+wrangler
+
+COMMANDS
+  wrangler docs [search..]        📚 Open Wrangler's command documentation in your browser
+
+ACCOUNT
+  wrangler auth                   🔐 Manage authentication
+  wrangler login                  🔓 Login to Cloudflare
+  wrangler logout                 🚪 Logout from Cloudflare
+  wrangler whoami                 🕵️ Retrieve your user information
+
+COMPUTE & AI
+  wrangler ai                     🤖 Manage AI models
+  wrangler containers             📦 Manage Containers [open beta]
+  wrangler delete [script]        🗑️ Delete a Worker from Cloudflare
+  wrangler deploy [script]        🆙 Deploy a Worker to Cloudflare
+  wrangler deployments            🚢 List and view the current and past deployments for your Worker
+  wrangler dev [script]           👂 Start a local server for developing your Worker
+  wrangler dispatch-namespace     🏗️ Manage dispatch namespaces
+  wrangler init [name]            📥 Initialize a basic Worker
+  wrangler pages                  ⚡️ Configure Cloudflare Pages
+  wrangler pubsub                 📮 Manage Pub/Sub brokers [private beta]
+  wrangler queues                 📬 Manage Workers Queues
+  wrangler rollback [version-id]  🔙 Rollback a deployment for a Worker
+  wrangler secret                 🤫 Generate a secret that can be referenced in a Worker
+  wrangler setup                  🪄 Setup a project to work on Cloudflare [experimental]
+  wrangler tail [worker]          🦚 Start a log tailing session for a Worker
+  wrangler triggers               🎯 Updates the triggers of your current deployment [experimental]
+  wrangler types [path]           📝 Generate types from your Worker configuration
+  wrangler versions               🫧 List, view, upload and deploy Versions of your Worker to Cloudflare
+  wrangler vpc                    🌐 Manage VPC [open beta]
+  wrangler workflows              🔁 Manage Workflows
+
+STORAGE & DATABASES
+  wrangler d1                     🗄️ Manage Workers D1 databases
+  wrangler hyperdrive             🚀 Manage Hyperdrive databases
+  wrangler kv                     🗂️ Manage Workers KV Namespaces
+  wrangler pipelines              🚰 Manage Cloudflare Pipelines [open beta]
+  wrangler r2                     📦 Manage R2 buckets & objects
+  wrangler secrets-store          🔐 Manage the Secrets Store [open beta]
+  wrangler vectorize              🧮 Manage Vectorize indexes
+
+NETWORKING & SECURITY
+  wrangler cert                   🪪 Manage client mTLS certificates and CA certificate chains used for secured connections [open beta]
+  wrangler mtls-certificate       🪪 Manage certificates used for mTLS connections
+
+GLOBAL FLAGS
+  -c, --config    Path to Wrangler configuration file  [string]
+      --cwd       Run as if Wrangler was started in the specified directory instead of the current working directory  [string]
+  -e, --env       Environment to use for operations, and for selecting .env and .dev.vars files  [string]
+      --env-file  Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
+  -h, --help      Show help  [boolean]
+  -v, --version   Show version number  [boolean]
+
+Please report any issues to https://github.com/cloudflare/workers-sdk/issues/new/choose
+jurgen@jldec.me main ~/astro/skatepark$ p wrangler deploy
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+
+✘ [ERROR] Missing entry-point to Worker script or to assets directory
+
+
+  If there is code to deploy, you can either:
+  - Specify an entry-point to your Worker script via the command line (ex: `pnpm wrangler deploy
+  src/index.ts`)
+  - Or create a "wrangler.jsonc" file containing:
+
+  ```
+  {
+    "name": "worker-name",
+    "compatibility_date": "2026-01-19",
+    "main": "src/index.ts"
+  }
+  ```
+
+
+  If are uploading a directory of assets, you can either:
+  - Specify the path to the directory of assets via the command line: (ex: `pnpm wrangler deploy
+  --assets=./dist`)
+  - Or create a "wrangler.jsonc" file containing:
+
+  ```
+  {
+    "name": "worker-name",
+    "compatibility_date": "2026-01-19",
+    "assets": {
+      "directory": "./dist"
+    }
+  }
+  ```
+
+
+
+🪵  Logs were written to "/Users/jldec/Library/Preferences/.wrangler/logs/wrangler-2026-01-19_17-07-19_072.log"
+jurgen@jldec.me main ~/astro/skatepark$ pnpm wrangler deploy --assets=./dist
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+
+✔ What do you want to name your project? … skatepark
+
+No compatibility date found Defaulting to today: 2026-01-19
+
+✔ Do you want Wrangler to write a wrangler.json config file to store this configuration?
+This will allow you to simply run `wrangler deploy` on future deployments. … yes
+Wrote
+{
+  "name": "skatepark",
+  "compatibility_date": "2026-01-19",
+  "assets": {
+    "directory": "./dist"
+  }
+}
+ to /Users/jldec/astro/skatepark/wrangler.jsonc.
+Please run `wrangler deploy` instead of `wrangler deploy ./dist` next time. Wrangler will automatically use the configuration saved to wrangler.jsonc.
+
+Proceeding with deployment...
+
+🌀 Building list of assets...
+✨ Read 11 files from the assets directory /Users/jldec/astro/skatepark/dist
+🌀 Starting asset upload...
+🌀 Found 10 new or modified static assets to upload. Proceeding with upload...
++ /index.html
++ /_astro/IMG_9874.CvZOgu8I_Z1LujnJ.webp
++ /_astro/IMG_9878.DSUNdIj0_Z18zfM2.webp
++ /_astro/IMG_9875.C3dW9SIW_Zm5c5I.webp
++ /_astro/index@_@astro.CFMzjirU.css
++ /_astro/IMG_9877.B-Cs9RD__ZQckew.webp
++ /_astro/IMG_9876.SJb-hvFS_Y7cM.webp
++ /favicon.jpg
++ /_astro/IMG_9873.BT4RYFvC_Zy5hS7.webp
++ /_astro/IMG_9872.1r-M4Mhx_eVl8S.webp
+Uploaded 3 of 10 assets
+Uploaded 6 of 10 assets
+Uploaded 10 of 10 assets
+✨ Success! Uploaded 10 files (4.13 sec)
+
+Total Upload: 0.34 KiB / gzip: 0.24 KiB
+Uploaded skatepark (8.90 sec)
+Deployed skatepark triggers (1.44 sec)
+  https://skatepark.jldec.workers.dev
+Current Version ID: 2fb7d86c-77f0-454a-88c4-1714563dd148
