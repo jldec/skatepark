@@ -129,8 +129,15 @@ function navigateImage(direction) {
   if (!overlay || allImages.length === 0) return
   currentImageIndex = (currentImageIndex + direction + allImages.length) % allImages.length
   const enlargedImg = overlay.querySelector('.enlarged-image')
-  enlargedImg.src = allImages[currentImageIndex].src
-  enlargedImg.alt = allImages[currentImageIndex].alt
+  const updateImage = () => {
+    enlargedImg.src = allImages[currentImageIndex].src
+    enlargedImg.alt = allImages[currentImageIndex].alt
+  }
+  if (document.startViewTransition) {
+    document.startViewTransition(updateImage)
+  } else {
+    updateImage()
+  }
 }
 
 document.addEventListener('keydown', function (event) {
