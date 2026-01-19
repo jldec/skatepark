@@ -1,6 +1,10 @@
 let overlay
+let currentImageIndex = -1
+let allImages = []
 
 function createImageOverlay(popupImage) {
+  allImages = Array.from(document.querySelectorAll('img'))
+  currentImageIndex = allImages.indexOf(popupImage)
   overlay = document.createElement('div')
   overlay.classList.add(
     'fixed',
@@ -27,11 +31,49 @@ function createImageOverlay(popupImage) {
     'top-4',
     'right-4',
     'p-2',
-    'hover:bg-white/10',
+    'hover:bg-white/30',
     'rounded-full',
     'transition-colors'
   )
   closeButton.addEventListener('click', closeOverlay)
+
+  const prevButton = document.createElement('button')
+  prevButton.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8" role="img" aria-label="Previous"><path d="M15 18l-6-6 6-6"></path></svg>`
+  prevButton.setAttribute('aria-label', 'Previous image')
+  prevButton.setAttribute('type', 'button')
+  prevButton.setAttribute('title', 'Previous image')
+  prevButton.classList.add(
+    'absolute',
+    'top-16',
+    'right-4',
+    'p-2',
+    'hover:bg-white/30',
+    'rounded-full',
+    'transition-colors'
+  )
+  prevButton.addEventListener('click', (e) => {
+    e.stopPropagation()
+    navigateImage(-1)
+  })
+
+  const nextButton = document.createElement('button')
+  nextButton.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8" role="img" aria-label="Next"><path d="M9 18l6-6-6-6"></path></svg>`
+  nextButton.setAttribute('aria-label', 'Next image')
+  nextButton.setAttribute('type', 'button')
+  nextButton.setAttribute('title', 'Next image')
+  nextButton.classList.add(
+    'absolute',
+    'top-28',
+    'right-4',
+    'p-2',
+    'hover:bg-white/30',
+    'rounded-full',
+    'transition-colors'
+  )
+  nextButton.addEventListener('click', (e) => {
+    e.stopPropagation()
+    navigateImage(1)
+  })
 
   const enlargedImg = popupImage.cloneNode()
   enlargedImg.classList.remove('hidden')
@@ -47,6 +89,8 @@ function createImageOverlay(popupImage) {
 
   overlay.appendChild(enlargedImg)
   overlay.appendChild(closeButton)
+  overlay.appendChild(prevButton)
+  overlay.appendChild(nextButton)
   document.body.appendChild(overlay)
   // Trigger reflow to ensure the transition applies
   overlay.offsetHeight
@@ -66,8 +110,26 @@ document.addEventListener('click', function (event) {
   }
 })
 
+function navigateImage(direction) {
+  if (!overlay || allImages.length === 0) return
+  currentImageIndex = (currentImageIndex + direction + allImages.length) % allImages.length
+  const enlargedImg = overlay.querySelector('.enlarged-image')
+  enlargedImg.src = allImages[currentImageIndex].src
+  enlargedImg.alt = allImages[currentImageIndex].alt
+}
+
 document.addEventListener('keydown', function (event) {
   if (overlay) {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      navigateImage(-1)
+      return
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      navigateImage(1)
+      return
+    }
     event.preventDefault()
     closeOverlay()
     return
